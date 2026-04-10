@@ -1,26 +1,121 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafaf8;
+  --foreground: #181817;
+  --muted: #65635f;
+  --accent: #4a6f5e;
+  --accent-muted: #6d8f7e;
+  --accent-light: #e6f0eb;
+  --accent-glow: #c5ddd0;
+  --border: #eae8e4;
+  --card: #ffffff;
+  --surface: #f3f2ef;
+  --shadow-soft: 0 1px 2px rgba(24, 24, 23, 0.04),
+    0 8px 24px -4px rgba(24, 24, 23, 0.06);
+  --shadow-card: 0 1px 3px rgba(24, 24, 23, 0.05),
+    0 12px 32px -8px rgba(24, 24, 23, 0.08);
+  --radius: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-cormorant);
+  --shadow-soft: var(--shadow-soft);
+  --shadow-card: var(--shadow-card);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  background-color: var(--background);
+}
+
+.font-serif-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+/* Yumuşak sayfa grid — çok hafif */
+.bg-page-mesh {
+  background-image: radial-gradient(
+      at 0% 0%,
+      rgba(198, 221, 208, 0.25) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 100% 0%, rgba(230, 240, 235, 0.5) 0px, transparent 45%),
+    radial-gradient(at 100% 100%, rgba(243, 242, 239, 0.8) 0px, transparent 40%);
+}
+
+@keyframes soft-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(6px, -10px) scale(1.02);
+  }
+  66% {
+    transform: translate(-4px, 6px) scale(0.98);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+.animate-soft-float {
+  animation: soft-float 14s ease-in-out infinite;
+}
+
+.animate-soft-float-delayed {
+  animation: soft-float 18s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+.animate-soft-pulse {
+  animation: soft-pulse 10s ease-in-out infinite;
+}
+
+.soft-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow-soft);
+}
+
+.soft-card-elevated {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Çok hafif noise — opsiyonel */
+.pastel-surface::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
